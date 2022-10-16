@@ -14,15 +14,43 @@ public class LogAnalyzer
     /**
      * Create an object to analyze hourly web accesses.
      */
-    public LogAnalyzer()
+    public LogAnalyzer(String name)
     { 
         // Create the array object to hold the hourly
         // access counts.
         hourCounts = new int[24];
         // Create the reader to obtain the data.
-        reader = new LogfileReader("demo.log");
+        reader = new LogfileReader(name);
+    }
+    
+    /**
+     * Find number of accesses for the log fle.
+     * @returns total number of accesses.
+     */
+    public int numberOfAccesses(){
+        int thisTotal = 0;
+        for(int t=0; t<hourCounts.length; t++){
+            thisTotal += hourCounts[t];
+        }
+        return thisTotal;
     }
 
+    /**
+     * Find the busiest hour
+     * @returns busiest hour calculated
+     */
+    public int busiestHour(){
+        int max = 0;
+        int busiestHour = 0;
+        for(int t=0; t<hourCounts.length; t++){
+            if(hourCounts[t]>max){
+                busiestHour = t;
+                max = hourCounts[t];
+            }
+        }
+        return busiestHour;
+    }
+    
     /**
      * Analyze the hourly access data from the log file.
      */
