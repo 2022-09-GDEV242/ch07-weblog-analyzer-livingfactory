@@ -52,6 +52,38 @@ public class LogAnalyzer
     }
     
     /**
+     * Find the quietest hour
+     * @returns quietest hour calculated
+     */
+    public int quietestHour(){
+        int min = numberOfAccesses();
+        int quietest = 0;
+        for(int t=0; t<hourCounts.length; t++){
+            if (hourCounts[t]<min){
+                quietest = t;
+                min = hourCounts[t];
+            }
+        }
+        return quietest;
+    }
+    
+    /**
+     * Find busiest two hours
+     * @returns one of two busy hours
+     */
+    public int busiestTwoHour(){
+        int max = 0;
+        int busyFirst = 0;
+        for(int t=0; t<hourCounts.length/2; t++){
+            int hourPair = hourCounts[t*2]+hourCounts[t*2+1];
+            if (hourPair > max){
+                busyFirst = t;
+            }
+        }
+        return busyFirst;
+    }
+    
+    /**
      * Analyze the hourly access data from the log file.
      */
     public void analyzeHourlyData()
