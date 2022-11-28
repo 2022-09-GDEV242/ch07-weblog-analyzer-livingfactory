@@ -10,7 +10,24 @@ public class LogAnalyzer
     private int[] hourCounts;
     // Use a LogfileReader to access the data.
     private LogfileReader reader;
-
+    
+    private int[] dayCounts;
+    private int[] monthCounts;
+    
+    /**
+     * Check the current day's data.
+     */    
+    public void checkThisDay()
+    {
+        hourCounts = new int[24];
+        reader.reset();
+        while(reader.hasNext()){
+            LogEntry entry = reader.next();
+            int hour = entry.getHour();
+            hourCounts[hour]++;
+        }
+    }
+    
     /**
      * Create an object to analyze hourly web accesses.
      */
@@ -82,6 +99,40 @@ public class LogAnalyzer
         }
         return busyFirst;
     }
+    
+    /**
+     * Return the busiest day calculated.
+     */
+    public int busiestDay()
+    {
+        checkThisDay();
+        int day = 1;
+        int busiest = dayCounts[1];
+        for(int k=1; k<hourCounts.length; k++){
+            if(dayCounts[k] > busiest){
+                busiest = dayCounts[k];
+                day = k;
+            }
+        }
+        return day;
+    }
+    
+    /**
+     * Return the quietest day calculated.
+     */
+    public int quietestDay()
+    {
+        analyzeHourlyData();
+        int day = 1;
+        int quietest = dayCounts[1];
+        for(int k=1; k<hourCounts.length; k++){
+            if(dayCounts[k] < quietest){
+                quietest = dayCounts[k];
+                day = k;
+            }
+        }
+        return day;
+    }    
     
     /**
      * Analyze the hourly access data from the log file.
