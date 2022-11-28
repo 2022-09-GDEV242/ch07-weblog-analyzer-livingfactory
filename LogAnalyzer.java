@@ -29,6 +29,20 @@ public class LogAnalyzer
     }
     
     /**
+     * Check the current month's data.
+     */
+    public void checkThisMonth()
+    {
+        dayCounts = new int[29];
+        reader.reset();
+        while(reader.hasNext()){
+            LogEntry entry = reader.next();
+            int day = entry.getDay();
+            dayCounts[day]++;
+        }
+    }
+    
+    /**
      * Create an object to analyze hourly web accesses.
      */
     public LogAnalyzer(String name)
@@ -50,6 +64,20 @@ public class LogAnalyzer
             thisTotal += hourCounts[t];
         }
         return thisTotal;
+    }
+    
+    /**
+     * Find the number of accesses in the month.
+     */
+    public void totalAccessesPerMonth()
+    {
+        checkThisMonth();
+        System.out.println("Month Access Count:");
+        int month = 1;
+        while(month < monthCounts.length){
+            System.out.println((month) + ": " + monthCounts[month]);
+            ++month;
+        }
     }
 
     /**
