@@ -115,6 +115,23 @@ public class LogAnalyzer
         }
         return month;
     }
+    
+    /**
+     * Find and return the average accesses per month.
+     * @returns the average accesses per month
+     */
+    public double averageAccessPerMonth()
+    {
+        //goes over all the lines in the file and adds 1 to count for each row.
+        checkThisMonth();
+        int total = 0;
+        double average = 0;
+        for(int k=0; k<monthCounts.length; k++){
+            total += monthCounts[k];
+            average = ((double)total/monthCounts.length);
+        }
+        return average;
+    }
 
     /**
      * Find the busiest hour
