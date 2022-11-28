@@ -79,6 +79,42 @@ public class LogAnalyzer
             ++month;
         }
     }
+    
+    /**
+     * Find and return the quietest month.
+     * @returns the quietest month.
+     */
+    public int quietestMonth()
+    {
+        checkThisMonth();
+        int month = 1;
+        int quietest = monthCounts[1];
+        for(int k=1; k<monthCounts.length; k++){
+            if(monthCounts[k] < quietest){
+                quietest = monthCounts[k];
+                month = k;
+            }
+        }
+        return month;
+    }
+    
+    /**
+     * Find and return the busiest month.
+     * @returns the busiest month.
+     */
+    public int busiestMonth()
+    {
+        analyzeHourlyData();
+        int month = 1;
+        int busiest = monthCounts[1];
+        for(int k=1; k<monthCounts.length; k++){
+            if(monthCounts[k] > busiest){
+                busiest = monthCounts[k];
+                month = k;
+            }
+        }
+        return month;
+    }
 
     /**
      * Find the busiest hour
